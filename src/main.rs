@@ -1,41 +1,34 @@
+use std::io;
+
 fn main() {
-    let nome: &str = "Richard";
-    let idade: i32 = 25;
-    let altura: f64 = 1.71;
-    let ativo: bool = true;
-    let mut pontos: i32 = 100;
+    println!("========");
+    println!("PERFIL");
+    println!("========");
 
-    println!("=================");
-    println!(" RUST PROFILE");
-    println!("=================");
+    let ler_nome = ler_nome();
+    let ler_idade = ler_idade();
 
-    println!("Nome: {nome}.");
-    println!("Idade: {idade}");
-    println!("Altura: {altura}");
-    println!("Ativo: {ativo}\n");
+    println!("Nome: {ler_nome}");
+    println!("Idade: {ler_idade}");
+}
 
-    let status = if idade >= 18 {
-    "Maior de idade."
+fn ler_nome() -> String {
+    println!("Digite seu nome:");
+    let mut nome: String = String::new();
+    io::stdin().read_line(&mut nome).unwrap();
+
+    nome.trim().to_string()
+}
+
+fn ler_idade() -> u8 {
+    loop {
+        println!("Digite sua idade:");
+        let mut entrada: String = String::new();
+        io::stdin().read_line(&mut entrada).unwrap();
+
+        match entrada.trim().parse::<u8>() {
+            Ok(idade) => return idade,
+            Err(_) => println!("Idade iválida."),
+        }
     }
-    else {
-    "Menor de idade."
-    };
-
-    println!("Status: {status}");
-
-    pontos += 50;
-    pontos -= 30;
-
-    println!("Pontos: {pontos}");
-
-    if idade >= 18 && ativo {
-        println!("Perfil autorizado.");
-    }
-    else {
-        println!("Perfil não autorizado.");
-    }
-
-    println!("=================");
-
-
 }
